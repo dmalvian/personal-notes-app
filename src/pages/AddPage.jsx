@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { addNote } from '../utils/local-data';
 import { useNavigate } from 'react-router-dom';
+import { showToast } from '../utils/index';
 
 function AddPage() {
   const [title, setTitle] = useState('');
@@ -13,6 +14,8 @@ function AddPage() {
     event.preventDefault();
     addNote({ title, body });
     navigate('/');
+
+    showToast('Note created successfully');
   }
 
   return (

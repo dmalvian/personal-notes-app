@@ -6,6 +6,7 @@ import AddPage from './pages/AddPage';
 import ArchivesPage from './pages/ArchivesPage';
 import DetailPage from './pages/DetailPage';
 import NotFoundPage from './pages/NotFoundPage';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
+      <ToastContainer />
     </div>
   );
 }

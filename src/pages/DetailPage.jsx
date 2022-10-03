@@ -5,6 +5,7 @@ import ToggleArchiveButton from '../components/ToggleArchiveButton';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getNote, deleteNote, archiveNote, unarchiveNote } from '../utils/local-data';
 import { showFormattedDate } from '../utils/index';
+import { showToast } from '../utils/index';
 
 function DetailPage() {
   const { id } = useParams();
@@ -15,6 +16,8 @@ function DetailPage() {
   function onDeleteNoteHandler(id) {
     deleteNote(id);
     navigate('/');
+
+    showToast('Note deleted successfully.')
   }
 
   function onToggleArchiveNoteHandler(id, archived) {
@@ -25,6 +28,8 @@ function DetailPage() {
     }
 
     navigate('/');
+
+    showToast(`Note ${archived ? 'activated' : 'archived'} successfully.`);
   }
 
   return (

@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const showFormattedDate = (date) => {
   const options = {
     weekday: 'long',
@@ -8,4 +10,16 @@ const showFormattedDate = (date) => {
   return new Date(date).toLocaleDateString('id-ID', options);
 };
 
-export { showFormattedDate };
+const showToast = (message) => {
+  toast.success(message, {
+    position: "bottom-left",
+    theme: "dark",
+    type: "success",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+  });
+}
+
+export { showFormattedDate, showToast };
