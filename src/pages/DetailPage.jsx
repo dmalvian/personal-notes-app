@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getNote, deleteNote, archiveNote, unarchiveNote } from '../utils/local-data';
 import { showFormattedDate } from '../utils/index';
 import { showToast } from '../utils/index';
+import { confirmAlert } from 'react-confirm-alert';
 
 function DetailPage() {
   const { id } = useParams();
@@ -14,10 +15,24 @@ function DetailPage() {
   const navigate = useNavigate();
 
   function onDeleteNoteHandler(id) {
-    deleteNote(id);
-    navigate('/');
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to delete this note?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            deleteNote(id);
+            navigate('/');
 
-    showToast('Note deleted successfully.')
+            showToast('Note deleted successfully.')
+          }
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
   }
 
   function onToggleArchiveNoteHandler(id, archived) {
