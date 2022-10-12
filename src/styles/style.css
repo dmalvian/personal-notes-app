@@ -59,6 +59,18 @@ header .navigation ul li {
   margin: 0 8px;
 }
 
+header .navigation ul li button {
+  background-color: transparent;
+  color: var(--on-background);
+  font-family: 'Inter', sans-serif;
+  border: 0;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 main {
   margin: 0 auto;
   padding: 32px 0;

@@ -8,9 +8,9 @@ import { useSearchParams } from 'react-router-dom';
 function HomePage() {
   const activeNotes = getActiveNotes();
   const [searchParams, setSearchParams] = useSearchParams();
-  const title = searchParams.get('title');
-
-  const [keyword, setKeyword] = useState(title || '');
+  const [keyword, setKeyword] = useState(() => {
+    return searchParams.get('title') || '';
+  });
 
   const filteredNotes = activeNotes.filter((note) =>
     new RegExp(keyword, 'i').test(note.title)

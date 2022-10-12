@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FiHome } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
+import { FiHome, FiLogOut } from 'react-icons/fi';
 import { BiArchive } from 'react-icons/bi';
+import { useAuth } from '../hooks/auth';
 
 function Navigation() {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
   return (
     <nav className="navigation">
       <ul>
@@ -16,6 +20,17 @@ function Navigation() {
           <Link to="/archives">
             <BiArchive />
           </Link>
+        </li>
+        <li>
+          <button
+            onClick={() => {
+              logout(() => {
+                navigate('/');
+              });
+            }}
+          >
+            <FiLogOut />
+          </button>
         </li>
       </ul>
     </nav>
