@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
-import { getArchivedNotes } from '../utils/local-data';
+import { getArchivedNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
 
 function ArchivesPage() {
-  const archivedNotes = getArchivedNotes();
+  const [archivedNotes, setArchivedNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const title = searchParams.get('title');
+  const [keyword, setKeyword] = useState(() => {
+    return searchParams.get('title') || '';
+  });
 
-  const [keyword, setKeyword] = useState(title || '');
+  useEffect(() => {
+    async function fetchData() {
+      const { error, data } = await getArchivedNotes();
+
+      if (!error) setArchivedNotes(data);
+
+      setLoading(false);
+
+      return () => {
+        setLoading(true);
+      };
+    }
+
+    fetchData();
+  }, []);
 
   const filteredNotes = archivedNotes.filter((note) =>
     new RegExp(keyword, 'i').test(note.title)
@@ -24,7 +41,7 @@ function ArchivesPage() {
     <section className="archives-page">
       <h2>Archived Notes</h2>
       <SearchBar keyword={keyword} onSearch={onSearch} />
-      <NoteList notes={filteredNotes} />
+      {loading ? <p>Loading...</p> : <NoteList notes={filteredNotes} />}
     </section>
   );
 }
