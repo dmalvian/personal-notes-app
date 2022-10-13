@@ -2,7 +2,7 @@ const localization = {
   en: {
     'Aplikasi Catatan': 'Notes App',
     'Catatan Aktif': 'Active Notes',
-    'Catatan Terarsip': 'Archived Notes',
+    'Arsip': 'Archives',
     'Memuat': 'Loading',
     'Cari berdasarkan judul': 'Search by title',
     'Judul': 'Title',
@@ -22,6 +22,12 @@ const localization = {
     'Catatan berhasil diarsipkan': 'Note archived successfully',
     'Catatan berhasil ditambahkan': 'Note created successfully',
     'Catatan berhasil dihapus': 'Note deleted successfully',
+    'Silakan lengkapi seluruh form': 'Please fill all fields',
+    'Lemah': 'Weak',
+    'Oke': 'Okay',
+    'Bagus': 'Good',
+    'Kuat': 'Strong',
+    'Terlalu Pendek': 'Too Short',
   }
 };
 

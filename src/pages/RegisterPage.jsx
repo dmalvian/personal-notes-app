@@ -4,6 +4,7 @@ import { useInput } from '../hooks/input';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { register } from '../utils/network-data';
 import { useLocale } from '../hooks/locale';
+import { toast } from 'react-toastify';
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -24,8 +25,10 @@ function RegisterPage() {
       email === '' ||
       password === '' ||
       confirmPassword === ''
-    )
+    ) {
+      toast.error(__('Silakan lengkapi seluruh form'));
       return;
+    }
 
     if (password.length < 6) return;
 
@@ -61,7 +64,23 @@ function RegisterPage() {
             onChange={onPasswordChange}
             placeholder="Password"
           />
-          <PasswordStrengthBar password={password} minLength="6" />
+          <div className="flex-container">
+            <div className="password-strength">
+              <PasswordStrengthBar
+                password={password}
+                minLength="6"
+                scoreWords={[
+                  __('Lemah'),
+                  __('Lemah'),
+                  __('Oke'),
+                  __('Bagus'),
+                  __('Kuat'),
+                ]}
+                barColors={['#666', '#ef4836', '#f6b44d', '#2b90ef', '#25c281']}
+                shortScoreWord={__('Terlalu Pendek')}
+              />
+            </div>
+          </div>
           <input
             style={{ marginBottom: '8px' }}
             type="password"

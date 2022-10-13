@@ -1,35 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
 import { getArchivedNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
 import { useLocale } from '../hooks/locale';
+import { useFetching } from '../hooks/fetching';
 
 function ArchivesPage() {
-  const [archivedNotes, setArchivedNotes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [archivedNotes, loading] = useFetching(() => getArchivedNotes(), []);
   const [searchParams, setSearchParams] = useSearchParams();
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get('title') || '';
   });
 
   const { translate: __ } = useLocale();
-
-  useEffect(() => {
-    async function fetchData() {
-      const { error, data } = await getArchivedNotes();
-
-      if (!error) setArchivedNotes(data);
-
-      setLoading(false);
-
-      return () => {
-        setLoading(true);
-      };
-    }
-
-    fetchData();
-  }, []);
 
   const filteredNotes = archivedNotes.filter((note) =>
     new RegExp(keyword, 'i').test(note.title)
@@ -42,7 +26,7 @@ function ArchivesPage() {
 
   return (
     <section className="archives-page">
-      <h2>{__('Catatan Terarsip')}</h2>
+      <h2>{__('Arsip')}</h2>
       <SearchBar keyword={keyword} onSearch={onSearch} />
       {loading ? (
         <section className="loading">

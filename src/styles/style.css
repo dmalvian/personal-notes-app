@@ -34,6 +34,20 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+.initialization {
+  color: var(--on-background);
+  background-color: var(--background);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.initialization p {
+  margin-top: 8px;
+}
+
 .app-container {
   color: var(--on-background);
   background-color: var(--background);
@@ -274,6 +288,16 @@ main {
   cursor: pointer;
 }
 
+.flex-container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.password-strength {
+  width: 100%;
+}
+
 .button-logout {
   display: flex;
   align-items: center;
@@ -300,10 +324,18 @@ main {
   .notes-list {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .password-strength {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .notes-list {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .password-strength {
+    width: 30%;
   }
 }

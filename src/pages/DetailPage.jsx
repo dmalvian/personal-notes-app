@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import parser from 'html-react-parser';
 import DeleteButton from '../components/DeleteButton';
 import ToggleArchiveButton from '../components/ToggleArchiveButton';
@@ -10,32 +10,16 @@ import {
   unarchiveNote,
 } from '../utils/network-data';
 import { showFormattedDate } from '../utils/index';
-import { showToast } from '../utils/index';
+import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import { useLocale } from '../hooks/locale';
+import { useFetching } from '../hooks/fetching';
 
 function DetailPage() {
   const { id } = useParams();
-  const [note, setNote] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [note, loading] = useFetching(() => getNote(id), null);
 
   const { translate: __ } = useLocale();
-
-  useEffect(() => {
-    async function fetchData() {
-      const { error, data } = await getNote(id);
-
-      if (!error) setNote(data);
-
-      setLoading(false);
-    }
-
-    fetchData();
-
-    return () => {
-      setLoading(true);
-    };
-  }, []);
 
   const navigate = useNavigate();
 
@@ -51,7 +35,7 @@ function DetailPage() {
 
             if (!error) {
               navigate('/');
-              showToast(__('Catatan berhasil dihapus'));
+              toast.success(__('Catatan berhasil dihapus'));
             }
           },
         },
@@ -73,7 +57,7 @@ function DetailPage() {
 
     if (!data.error) {
       navigate('/');
-      showToast(
+      toast.success(
         archived
           ? __('Catatan berhasil diaktifkan')
           : __('Catatan berhasil diarsipkan')

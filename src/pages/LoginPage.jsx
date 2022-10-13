@@ -4,6 +4,7 @@ import { useInput } from '../hooks/input';
 import { login } from '../utils/network-data';
 import { useAuth } from '../hooks/auth';
 import { useLocale } from '../hooks/locale';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -18,6 +19,11 @@ function LoginPage() {
 
   async function onSubmit(event) {
     event.preventDefault();
+
+    if (email === '' || password === '') {
+      toast.error(__('Silakan lengkapi seluruh form'));
+      return;
+    }
 
     const { error, data } = await login({ email, password });
 

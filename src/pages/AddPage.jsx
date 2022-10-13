@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { addNote } from '../utils/network-data';
 import { useNavigate } from 'react-router-dom';
-import { showToast } from '../utils/index';
+import { toast } from 'react-toastify';
 import { useLocale } from '../hooks/locale';
 
 function AddPage() {
@@ -19,7 +19,7 @@ function AddPage() {
 
     if (!error) {
       navigate('/');
-      showToast(__('Catatan berhasil ditambahkan'));
+      toast.success(__('Catatan berhasil ditambahkan'));
     }
   }
 

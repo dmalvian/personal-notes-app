@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AddButton from '../components/AddButton';
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
 import { getActiveNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
 import { useLocale } from '../hooks/locale';
+import { useFetching } from '../hooks/fetching';
 
 function HomePage() {
   const [activeNotes, loading] = useFetching(() => getActiveNotes(), []);
@@ -40,29 +41,6 @@ function HomePage() {
       </div>
     </section>
   );
-}
-
-function useFetching(fetchFunction, defaultState = null) {
-  const [data, setData] = useState(defaultState);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      const { error, data } = await fetchFunction();
-
-      if (!error) setData(data);
-
-      setLoading(false);
-
-      return () => {
-        setLoading(true);
-      };
-    }
-
-    fetchData();
-  }, []);
-
-  return [data, loading];
 }
 
 export default HomePage;

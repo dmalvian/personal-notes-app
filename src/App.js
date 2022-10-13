@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import RequireAuth from './components/RequireAuth';
@@ -13,12 +13,21 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import { useAuth } from './hooks/auth';
 import { useLocale } from './hooks/locale';
+import BounceLoader from 'react-spinners/BounceLoader';
+import ThemeContext from './contexts/ThemeContext';
 
 function App() {
   const { initializing } = useAuth();
   const { translate: __ } = useLocale();
+  const { theme } = useContext(ThemeContext);
 
-  if (initializing) return <p>Loading</p>;
+  if (initializing)
+    return (
+      <div className="initialization">
+        <BounceLoader color={theme === 'light' ? '#333333' : '#FFFFFF'} />
+        <p>Initializing</p>
+      </div>
+    );
 
   return (
     <div className="app-container">
@@ -79,7 +88,14 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-left"
+        theme={theme}
+        autoClose="3000"
+        hideProgressBar="false"
+        closeOnClick="true"
+        pauseOnHover="true"
+      />
     </div>
   );
 }
