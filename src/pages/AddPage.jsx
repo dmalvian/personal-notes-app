@@ -3,12 +3,14 @@ import { FiSave } from 'react-icons/fi';
 import { addNote } from '../utils/network-data';
 import { useNavigate } from 'react-router-dom';
 import { showToast } from '../utils/index';
+import { useLocale } from '../hooks/locale';
 
 function AddPage() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   const navigate = useNavigate();
+  const { translate: __ } = useLocale();
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -17,7 +19,7 @@ function AddPage() {
 
     if (!error) {
       navigate('/');
-      showToast('Note created successfully');
+      showToast(__('Catatan berhasil ditambahkan'));
     }
   }
 
@@ -27,7 +29,7 @@ function AddPage() {
         <div className="add-new-page__input">
           <input
             className="add-new-page__input__title"
-            placeholder="Title"
+            placeholder={__('Judul')}
             value={title}
             onChange={(event) => {
               setTitle(event.target.value);
@@ -36,7 +38,7 @@ function AddPage() {
           <div
             className="add-new-page__input__body"
             contentEditable="true"
-            data-placeholder="Body"
+            data-placeholder={__('Isi catatan')}
             onInput={(event) => {
               setBody(event.target.innerHTML);
             }}

@@ -3,15 +3,23 @@ import parser from 'html-react-parser';
 import DeleteButton from '../components/DeleteButton';
 import ToggleArchiveButton from '../components/ToggleArchiveButton';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getNote, deleteNote, archiveNote, unarchiveNote } from '../utils/network-data';
+import {
+  getNote,
+  deleteNote,
+  archiveNote,
+  unarchiveNote,
+} from '../utils/network-data';
 import { showFormattedDate } from '../utils/index';
 import { showToast } from '../utils/index';
 import { confirmAlert } from 'react-confirm-alert';
+import { useLocale } from '../hooks/locale';
 
 function DetailPage() {
   const { id } = useParams();
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { translate: __ } = useLocale();
 
   useEffect(() => {
     async function fetchData() {
@@ -33,22 +41,22 @@ function DetailPage() {
 
   function onDeleteNoteHandler(id) {
     confirmAlert({
-      title: 'Confirm to delete',
-      message: 'Are you sure to delete this note?',
+      title: __('Konfirmasi'),
+      message: __('Apakah anda yakin ingin menghapus catatan ini?'),
       buttons: [
         {
-          label: 'Yes',
+          label: __('Ya'),
           onClick: async () => {
-            const { error } = deleteNote(id);
+            const { error } = await deleteNote(id);
 
             if (!error) {
               navigate('/');
-              showToast('Note deleted successfully.');
+              showToast(__('Catatan berhasil dihapus'));
             }
           },
         },
         {
-          label: 'No',
+          label: __('Batal'),
         },
       ],
     });
@@ -65,13 +73,27 @@ function DetailPage() {
 
     if (!data.error) {
       navigate('/');
-      showToast(`Note ${archived ? 'activated' : 'archived'} successfully.`);
+      showToast(
+        archived
+          ? __('Catatan berhasil diaktifkan')
+          : __('Catatan berhasil diarsipkan')
+      );
     }
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <section className="loading">
+        <p>{__('Memuat')}...</p>
+      </section>
+    );
 
-  if (!loading && note === null) return <p>Your are not allowed to access this note.</p>;
+  if (!loading && note === null)
+    return (
+      <section className="loading">
+        <p>{__('Anda tidak diperkenankan untuk mengakses catatan ini')}</p>
+      </section>
+    );
 
   return (
     <section className="detail-page" id={id}>

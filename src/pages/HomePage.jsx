@@ -4,30 +4,16 @@ import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
 import { getActiveNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
+import { useLocale } from '../hooks/locale';
 
 function HomePage() {
-  const [activeNotes, setActiveNotes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeNotes, loading] = useFetching(() => getActiveNotes(), []);
   const [searchParams, setSearchParams] = useSearchParams();
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get('title') || '';
   });
 
-  useEffect(() => {
-    async function fetchData() {
-      const { error, data } = await getActiveNotes();
-
-      if (!error) setActiveNotes(data);
-
-      setLoading(false);
-
-      return () => {
-        setLoading(true);
-      };
-    }
-
-    fetchData();
-  }, []);
+  const { translate: __ } = useLocale();
 
   const filteredNotes = activeNotes.filter((note) =>
     new RegExp(keyword, 'i').test(note.title)
@@ -40,14 +26,43 @@ function HomePage() {
 
   return (
     <section className="homepage">
-      <h2>Active Notes</h2>
+      <h2>{__('Catatan Aktif')}</h2>
       <SearchBar keyword={keyword} onSearch={onSearch} />
-      {loading ? <p>Loading...</p> : <NoteList notes={filteredNotes} />}
+      {loading ? (
+        <section className="loading">
+          <p>{__('Memuat')}...</p>
+        </section>
+      ) : (
+        <NoteList notes={filteredNotes} />
+      )}
       <div className="homepage__action">
         <AddButton />
       </div>
     </section>
   );
+}
+
+function useFetching(fetchFunction, defaultState = null) {
+  const [data, setData] = useState(defaultState);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      const { error, data } = await fetchFunction();
+
+      if (!error) setData(data);
+
+      setLoading(false);
+
+      return () => {
+        setLoading(true);
+      };
+    }
+
+    fetchData();
+  }, []);
+
+  return [data, loading];
 }
 
 export default HomePage;

@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useInput } from '../hooks/input';
 import { login } from '../utils/network-data';
 import { useAuth } from '../hooks/auth';
+import { useLocale } from '../hooks/locale';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function LoginPage() {
   const [password, onPasswordChange] = useInput('');
 
   const from = location.state?.from?.pathname || '/';
+
+  const { translate: __ } = useLocale();
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -27,6 +30,7 @@ function LoginPage() {
 
   return (
     <section className="login-page">
+      <h2>Login</h2>
       <form onSubmit={onSubmit}>
         <div className="input-login">
           <input
@@ -44,7 +48,11 @@ function LoginPage() {
           <button>Login</button>
         </div>
       </form>
-      <p><Link to="/register">Register</Link></p>
+      <p>
+        {__('Belum punya akun?')}
+        &nbsp;
+        <Link to="/register">{__('Daftar di sini')}</Link>
+      </p>
     </section>
   );
 }

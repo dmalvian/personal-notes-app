@@ -12,17 +12,19 @@ import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import { useAuth } from './hooks/auth';
+import { useLocale } from './hooks/locale';
 
 function App() {
-  const { user, initializing } = useAuth();
+  const { initializing } = useAuth();
+  const { translate: __ } = useLocale();
 
   if (initializing) return <p>Loading</p>;
 
   return (
     <div className="app-container">
       <header>
-        <h1>Personal Notes App</h1>
-        {user ? <Navigation /> : ''}
+        <h1>{__('Aplikasi Catatan')}</h1>
+        <Navigation />
       </header>
       <main>
         <Routes>

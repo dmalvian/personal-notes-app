@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocale } from '../hooks/locale';
 
 function SearchBar({ keyword, onSearch }) {
+  const { translate: __ } = useLocale();
 
   function onKeywordChangeHandler(event) {
     onSearch(event.target.value);
@@ -11,7 +13,7 @@ function SearchBar({ keyword, onSearch }) {
     <section className="search-bar">
       <input
         type="text"
-        placeholder="Search by title..."
+        placeholder={`${__('Cari berdasarkan judul')}...`}
         value={keyword}
         onChange={onKeywordChangeHandler}
       />

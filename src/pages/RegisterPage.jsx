@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useInput } from '../hooks/input';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { register } from '../utils/network-data';
+import { useLocale } from '../hooks/locale';
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function RegisterPage() {
   const [confirmPassword, onConfirmPasswordChange] = useInput('');
 
   useEffect(() => {}, [password, confirmPassword]);
+
+  const { translate: __ } = useLocale();
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -37,6 +40,7 @@ function RegisterPage() {
 
   return (
     <section className="register-page">
+      <h2>Register</h2>
       <form onSubmit={onSubmit}>
         <div className="input-register">
           <input
@@ -80,7 +84,9 @@ function RegisterPage() {
         </div>
       </form>
       <p>
-        <Link to="/login">Login</Link>
+        {__('Sudah punya akun?')}
+        &nbsp;
+        <Link to="/login">{__('Login di sini')}</Link>
       </p>
     </section>
   );

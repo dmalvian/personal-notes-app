@@ -12,14 +12,14 @@ const showFormattedDate = (date) => {
 
 const showToast = (message) => {
   toast.success(message, {
-    position: "bottom-left",
-    theme: "dark",
-    type: "success",
+    position: 'bottom-left',
+    theme: 'dark',
+    type: 'success',
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
   });
-}
+};
 
 export { showFormattedDate, showToast };

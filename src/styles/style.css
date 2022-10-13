@@ -53,22 +53,26 @@ header h1 {
   flex: 1;
 }
 
-header .navigation ul li {
+/* header .navigation ul li {
   display: inline-block;
   font-size: 24px;
   margin: 0 8px;
+} */
+
+header .navigation {
+  display: flex;
 }
 
-header .navigation ul li button {
-  background-color: transparent;
-  color: var(--on-background);
-  font-family: 'Inter', sans-serif;
-  border: 0;
-  font-size: 24px;
-  cursor: pointer;
+header .navigation a {
   display: flex;
   align-items: center;
-  gap: 10px;
+  font-size: 32px;
+  margin: 0 8px;
+}
+
+header .separator {
+  border-right: 2.5px solid var(--on-background);
+  margin: 0 8px;
 }
 
 main {
@@ -86,12 +90,12 @@ main {
   padding: 16px 8px;
 }
 
-.notes-list-empty {
+.notes-list-empty, .loading {
   margin-top: 32px;
   padding: 16px 8px;
 }
 
-.notes-list-empty p {
+.notes-list-empty p, .loading p {
   text-align: center;
   color: var(--on-background-grey);
 }
@@ -223,7 +227,7 @@ main {
   color: var(--on-background);
   display: flex;
   align-items: center;
-  margin: 0 16px;
+  margin: 0 8px;
 }
 
 .toggle-theme {
@@ -279,6 +283,7 @@ main {
   font-size: 28px;
   cursor: pointer;
   color: var(--on-background);
+  margin-left: 8px;
 }
 
 @media screen and (min-width: 650px) {
