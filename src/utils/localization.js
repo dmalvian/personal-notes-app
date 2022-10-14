@@ -28,6 +28,7 @@ const localization = {
     'Bagus': 'Good',
     'Kuat': 'Strong',
     'Terlalu Pendek': 'Too Short',
+    'Menginisiasi': 'Initializing',
   }
 };
 

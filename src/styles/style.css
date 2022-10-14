@@ -2,7 +2,7 @@
   --primary: #BB86FC;
   --primary-variant: #3700B3;
   --secondary: #03DAC6;
-  --background: #121212;
+  --background: #1f2937;
   --surface: #121212;
   --error: #CF6679;
   --warning: #F39C12;
@@ -12,7 +12,7 @@
 }
 
 [data-theme="light"] {
-  --background: #DDDDDD;
+  --background: #ecfdf5;
   --suface: #FFFFFF;
   --on-background: #333333;
   --on-background-grey: #6d6d6d;
@@ -45,7 +45,7 @@ body {
 }
 
 .initialization p {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .app-container {
@@ -291,7 +291,7 @@ main {
 .flex-container {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .password-strength {

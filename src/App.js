@@ -25,7 +25,7 @@ function App() {
     return (
       <div className="initialization">
         <BounceLoader color={theme === 'light' ? '#333333' : '#FFFFFF'} />
-        <p>Initializing</p>
+        <p>{__('Menginisiasi')}...</p>
       </div>
     );
 
