@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import { useLocale } from '../hooks/locale';
 import { useFetching } from '../hooks/fetching';
+import path from '../utils/path';
 
 function DetailPage() {
   const { id } = useParams();
@@ -34,7 +35,7 @@ function DetailPage() {
             const { error } = await deleteNote(id);
 
             if (!error) {
-              navigate('/');
+              navigate(path.HOME);
               toast.success(__('Catatan berhasil dihapus'));
             }
           },
@@ -56,7 +57,7 @@ function DetailPage() {
     }
 
     if (!data.error) {
-      navigate('/');
+      navigate(path.HOME);
       toast.success(
         archived
           ? __('Catatan berhasil diaktifkan')

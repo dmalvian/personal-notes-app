@@ -5,6 +5,7 @@ import { login } from '../utils/network-data';
 import { useAuth } from '../hooks/auth';
 import { useLocale } from '../hooks/locale';
 import { toast } from 'react-toastify';
+import path from '../utils/path';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ function LoginPage() {
       <p>
         {__('Belum punya akun?')}
         &nbsp;
-        <Link to="/register">{__('Daftar di sini')}</Link>
+        <Link to={path.REGISTER}>{__('Daftar di sini')}</Link>
       </p>
     </section>
   );

@@ -4,6 +4,7 @@ import { addNote } from '../utils/network-data';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useLocale } from '../hooks/locale';
+import path from '../utils/path';
 
 function AddPage() {
   const [title, setTitle] = useState('');
@@ -18,7 +19,7 @@ function AddPage() {
     const { error } = await addNote({ title, body });
 
     if (!error) {
-      navigate('/');
+      navigate(path.HOME);
       toast.success(__('Catatan berhasil ditambahkan'));
     }
   }

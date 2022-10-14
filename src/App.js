@@ -15,6 +15,7 @@ import { useAuth } from './hooks/auth';
 import { useLocale } from './hooks/locale';
 import BounceLoader from 'react-spinners/BounceLoader';
 import ThemeContext from './contexts/ThemeContext';
+import path from './utils/path';
 
 function App() {
   const { initializing } = useAuth();
@@ -38,7 +39,7 @@ function App() {
       <main>
         <Routes>
           <Route
-            path="/register"
+            path={path.REGISTER}
             element={
               <OnlyGuest>
                 <RegisterPage />
@@ -46,7 +47,7 @@ function App() {
             }
           />
           <Route
-            path="/login"
+            path={path.LOGIN}
             element={
               <OnlyGuest>
                 <LoginPage />
@@ -54,7 +55,7 @@ function App() {
             }
           />
           <Route
-            path="/"
+            path={path.HOME}
             element={
               <RequireAuth>
                 <HomePage />
@@ -62,7 +63,7 @@ function App() {
             }
           />
           <Route
-            path="/add"
+            path={path.ADD_NOTE}
             element={
               <RequireAuth>
                 <AddPage />
@@ -70,7 +71,7 @@ function App() {
             }
           />
           <Route
-            path="/archives"
+            path={path.ARCHIVES}
             element={
               <RequireAuth>
                 <ArchivesPage />
@@ -78,7 +79,7 @@ function App() {
             }
           />
           <Route
-            path="/notes/:id"
+            path={path.DETAIL}
             element={
               <RequireAuth>
                 <DetailPage />

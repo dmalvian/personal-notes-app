@@ -4,6 +4,7 @@ import { FiHome, FiArchive, FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../hooks/auth';
 import ToggleThemeButton from './ToggleThemeButton';
 import ToggleLocaleButton from './ToggleLocaleButton';
+import path from '../utils/path';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -24,10 +25,10 @@ function Navigation() {
       <ToggleLocaleButton />
       <ToggleThemeButton />
       <div className="separator" />
-      <Link to="/">
+      <Link to={path.HOME}>
         <FiHome />
       </Link>
-      <Link to="/archives">
+      <Link to={path.ARCHIVES}>
         <FiArchive />
       </Link>
       <button
@@ -35,7 +36,7 @@ function Navigation() {
         type="button"
         onClick={() => {
           logout(() => {
-            navigate('/');
+            navigate(path.HOME);
           });
         }}
       >

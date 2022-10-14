@@ -29,6 +29,8 @@ const localization = {
     'Kuat': 'Strong',
     'Terlalu Pendek': 'Too Short',
     'Menginisiasi': 'Initializing',
+    'Proses pendaftaran berhasil': 'The registration process is success',
+    'Password tidak sesuai':  'Password doesn\'t match',
   }
 };
 

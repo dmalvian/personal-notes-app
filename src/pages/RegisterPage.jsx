@@ -5,6 +5,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { register } from '../utils/network-data';
 import { useLocale } from '../hooks/locale';
 import { toast } from 'react-toastify';
+import path from '../utils/path';
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -37,7 +38,8 @@ function RegisterPage() {
     const { error } = await register({ name, email, password });
 
     if (!error) {
-      navigate('/');
+      navigate(path.LOGIN);
+      toast.success(__('Proses pendaftaran berhasil'));
     }
   }
 
@@ -96,7 +98,7 @@ function RegisterPage() {
             }}
           >
             {confirmPassword !== '' && password !== confirmPassword
-              ? 'password does not match'
+              ? __('Password tidak sesuai')
               : '\u00A0'}
           </p>
           <button>Register</button>
@@ -105,7 +107,7 @@ function RegisterPage() {
       <p>
         {__('Sudah punya akun?')}
         &nbsp;
-        <Link to="/login">{__('Login di sini')}</Link>
+        <Link to={path.LOGIN}>{__('Login di sini')}</Link>
       </p>
     </section>
   );
